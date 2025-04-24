@@ -36,7 +36,7 @@ class BankAccount:
 
 
 
-acc = BankAccount("John Doe", "Savings", 1000)
+acc = BankAccount("Jenny SS", "Savings", 1000)
 acc.display_account()
 acc.deposit(500)
 acc.withdraw(300)
