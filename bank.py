@@ -7,7 +7,7 @@ class BankAccount:
     def deposit(self, amount):
         if self.__validate_transaction(amount):
             self.__balance += amount
-            print(f"Deposited ${amount:.2f}. New balance: ${self.__balance:.2f}")
+            print(f"Deposited Rs{amount:.2f}. New balance: Rs{self.__balance:.2f}")
         else:
             print("Deposit failed. Amount must be positive.")
 
@@ -18,7 +18,7 @@ class BankAccount:
             print("Withdrawal failed. Insufficient funds.")
         else:
             self.__balance -= amount
-            print(f"Withdrew ${amount:.2f}. New balance: ${self.__balance:.2f}")
+            print(f"Withdrew Rs{amount:.2f}. New balance: Rs{self.__balance:.2f}")
 
     def _update_account_type(self, new_type):
         self._account_type = new_type
@@ -30,7 +30,7 @@ class BankAccount:
     def display_account(self):
         print(f"Account Holder: {self.account_holder}")
         print(f"Account Type: {self._account_type}")
-        print(f"Balance: ${self.__balance:.2f}")
+        print(f"Balance: Rs{self.__balance:.2f}")
         print("Account details displayed successfully.")
         return self.__balance
 
