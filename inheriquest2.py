@@ -1,8 +1,8 @@
 class Person:
     def __init__(self, name, age, contact_number):
-        self.__name = name 
-        self.__age = age 
-        self._contact_number = contact_number  
+        self.__name = name
+        self.__age = age
+        self._contact_number = contact_number
 
     def get_contact_number(self):
         return self._contact_number
@@ -17,8 +17,8 @@ class Person:
 class Patient(Person):
     def __init__(self, name, age, contact_number, patient_id):
         super().__init__(name, age, contact_number)
-        self.__patient_id = patient_id  
-        self.__ailments = []  
+        self.__patient_id = patient_id
+        self.__ailments = []
 
     def add_ailment(self, ailment):
         self.__ailments.append(ailment)
@@ -36,8 +36,8 @@ class Patient(Person):
 class Doctor(Person):
     def __init__(self, name, age, contact_number, doctor_id):
         super().__init__(name, age, contact_number)
-        self.__doctor_id = doctor_id 
-        self._patients = []  
+        self.__doctor_id = doctor_id
+        self._patients = []
 
     def assign_patient(self, patient):
         self._patients.append(patient)
@@ -58,7 +58,7 @@ class Doctor(Person):
 
 class Hospital:
     def __init__(self):
-        self._admitted_patients = [] 
+        self._admitted_patients = []
 
     def admit_patient(self, patient):
         self._admitted_patients.append(patient)
@@ -75,46 +75,93 @@ class Hospital:
     def show_admitted_patients(self):
         patient_ids = [patient._Patient__patient_id for patient in self._admitted_patients]
         print(f"Admitted Patients: {', '.join(patient_ids) if patient_ids else 'None'}")
-        
-        
 
+
+# Create a hospital instance
 hospital = Hospital()
 
-
-patient1 = Patient("Hari Shyam", 30, "1234567890", "P001")
-patient2 = Patient("Ram Hari", 25, "0987654321", "P002")
-
-
-hospital.admit_patient(patient1)
-hospital.admit_patient(patient2)
-
-
-patient1.add_ailment("Fever")
-patient1.add_ailment("Cough")
-patient2.add_ailment("Headache")
-
-
-hospital.show_admitted_patients()
-
-
+# Create a doctor instance
 doctor = Doctor("Dr. Krishna", 45, "1122334455", "D001")
 
+# Dictionary to hold patients
+patients = {}
 
-doctor.assign_patient(patient1)
-doctor.assign_patient(patient2)
+# Menu-driven interface
+while True:
+    print("\nMenu:")
+    print("1. Admit a patient")
+    print("2. Discharge a patient")
+    print("3. View admitted patients")
+    print("4. Add ailment to a patient")
+    print("5. View patient ailments")
+    print("6. Assign a patient to a doctor")
+    print("7. View doctor's assigned patients")
+    print("8. Add a new patient")
+    print("0. Exit")
 
+    try:
+        choice = int(input("Enter your choice: "))
 
-doctor.display_assigned_patients()
-patient1.view_ailments()
-patient2.view_ailments()
+        if choice == 1:
+            name = input("Enter patient name: ")
+            age = int(input("Enter patient age: "))
+            contact = input("Enter patient contact number: ")
+            patient_id = input("Enter patient ID: ")
+            if patient_id not in patients:
+                patient = Patient(name, age, contact, patient_id)
+                patients[patient_id] = patient
+                hospital.admit_patient(patient)
+            else:
+                print("Patient ID already exists.")
 
+        elif choice == 2:
+            patient_id = input("Enter patient ID to discharge: ")
+            hospital.discharge_patient(patient_id)
 
-hospital.discharge_patient("P001")
+        elif choice == 3:
+            hospital.show_admitted_patients()
 
+        elif choice == 4:
+            patient_id = input("Enter patient ID: ")
+            if patient_id in patients:
+                ailment = input("Enter ailment: ")
+                patients[patient_id].add_ailment(ailment)
+            else:
+                print("Patient not found.")
 
-hospital.show_admitted_patients()
+        elif choice == 5:
+            patient_id = input("Enter patient ID: ")
+            if patient_id in patients:
+                patients[patient_id].view_ailments()
+            else:
+                print("Patient not found.")
 
+        elif choice == 6:
+            patient_id = input("Enter patient ID: ")
+            if patient_id in patients:
+                doctor.assign_patient(patients[patient_id])
+            else:
+                print("Patient not found.")
 
-doctor.display_info()
-patient1.display_details()
-patient2.display_details()
+        elif choice == 7:
+            doctor.display_assigned_patients()
+
+        elif choice == 8:
+            name = input("Enter patient name: ")
+            age = int(input("Enter patient age: "))
+            contact = input("Enter patient contact number: ")
+            patient_id = input("Enter patient ID: ")
+            if patient_id not in patients:
+                patients[patient_id] = Patient(name, age, contact, patient_id)
+                print(f"Patient '{name}' added successfully.")
+            else:
+                print("Patient ID already exists.")
+
+        elif choice == 0:
+            print("Exiting the program.")
+            break
+
+        else:
+            print("Invalid choice. Please try again.")
+    except ValueError:
+        print("Invalid input. Please enter a number.")
