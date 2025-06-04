@@ -30,4 +30,21 @@ a = [67, 34, 25, 12, 22, 11]
 print("Unsorted array:", a)
 print("Sorted array:", bubblesort(a))
 
+# Insertion Sort Algorithm Implementation
 
+def insertionsort(a):
+    for i in range(1, len(a)):
+        key = a[i]
+        j = i - 1
+        
+        while j >= 0 and key < a[j]:
+            a[j + 1] = a[j]
+            j -= 1
+            
+        a[j + 1] = key
+        
+    return a
+
+a = [78, 34, 56, 12, 22, 11]
+print("Unsorted array:", a)
+print("Sorted array:", insertionsort(a))
