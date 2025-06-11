@@ -14,7 +14,6 @@ def calculate_interest():
 
 root.title("Simple Interest Calculator")
 
-# Labels
 l1 = Label(root, text="Principal: ")
 l2 = Label(root, text="Rate (%): ")
 l3 = Label(root, text="Time: ")

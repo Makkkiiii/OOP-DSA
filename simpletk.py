@@ -12,7 +12,6 @@ l2 = Label(root, text="Surname: ")
 
 e1=Entry(root)
 e2=Entry(root)
-
 b = Button(root, text="Greet", command=greet)
 
 l3 = Label(root, text="")
@@ -23,6 +22,5 @@ e2.grid(row=1, column=1)
 b.grid(row=2, column=0, columnspan=4)
 
 l3.grid(row=3, column=0, columnspan=2)
-
 
 root.mainloop()
